@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AssembleKaro | Assembly Made Easy</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#101010;color:white;line-height:1.6}
+header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333}
+.logo{font-size:25px;font-weight:bold;color:#ff791b}
+.logo span{color:white}
+nav a{color:white;text-decoration:none;margin-left:20px;font-size:14px}
+.hero{padding:90px 7%;background:linear-gradient(120deg,#171717,#29201a)}
+.hero h1{font-size:clamp(36px,6vw,65px);line-height:1.15;max-width:750px}
+.hero h1 span{color:#ff791b}
+.hero p{color:#ccc;margin:22px 0;max-width:550px}
+.btn{display:inline-block;background:#ff791b;color:#111;padding:13px 24px;border-radius:6px;text-decoration:none;font-weight:bold;border:0;cursor:pointer}
+section{padding:65px 7%}
+.heading{text-align:center;margin-bottom:35px}
+.heading h2{font-size:32px}
+.heading p{color:#aaa}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.service{background:#1e1e1e;border:1px solid #333;padding:25px;border-radius:12px}
+.service .emoji{font-size:35px}
+.service h3{margin:12px 0;color:#ff791b}
+.service p{color:#bbb;font-size:14px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;text-align:center}
+.step{background:#1e1e1e;padding:25px;border-radius:10px}
+.step b{font-size:30px;color:#ff791b}
+.booking{background:#1b1b1b;text-align:center}
+.booking form{max-width:500px;margin:25px auto;display:grid;gap:13px}
+input,select,textarea{width:100%;padding:14px;border-radius:6px;border:1px solid #555;background:#292929;color:white}
+footer{text-align:center;padding:25px;color:#aaa;border-top:1px solid #333}
+@media(max-width:600px){header{padding:15px 5%}nav a{margin-left:8px;font-size:12px}.hero{padding:65px 6%}section{padding:50px 6%}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">Assemble<span>Karo</span> 🟠</div>
+<nav>
+<a href="#services">Services</a>
+<a href="#how">How It Works</a>
+<a href="#booking">Book Now</a>
+</nav>
+</header>
+
+<div class="hero">
+<h1>Assembly Made <span>Easy.</span></h1>
+<p>Furniture, office chairs and home products assembled by skilled professionals. Book an assembly service with AssembleKaro.</p>
+<a class="btn" href="#booking">Explore Our Services →</a>
+</div>
+
+<section id="services">
+<div class="heading">
+<h2>Our Services</h2>
+<p>We make your assembly experience simple and convenient.</p>
+</div>
+<div class="services">
+<div class="service">
+<div class="emoji">🛏️</div>
+<h3>Furniture Assembly</h3>
+<p>Beds, wardrobes, tables, sofas and other furniture.</p>
+</div>
+<div class="service">
+<div class="emoji">🪑</div>
+<h3>Office Chair Assembly</h3>
+<p>Professional assembly of office and study chairs.</p>
+</div>
+<div class="service">
+<div class="emoji">🏠</div>
+<h3>Home Products</h3>
+<p>Help with assembling various household products.</p>
+</div>
+<div class="service">
+<div class="emoji">🔧</div>
+<h3>Installation Support</h3>
+<p>Convenient installation assistance for selected products.</p>
+</div>
+</div>
+</section>
+
+<section id="how">
+<div class="heading">
+<h2>How It Works</h2>
+<p>Three simple steps to get started.</p>
+</div>
+<div class="steps">
+<div class="step"><b>01</b><h3>Choose Service</h3><p>Select the product you need assembled.</p></div>
+<div class="step"><b>02</b><h3>Request Booking</h3><p>Share your service requirements.</p></div>
+<div class="step"><b>03</b><h3>Get Assembly Help</h3><p>Connect with an assembly professional.</p></div>
+</div>
+</section>
+
+<section class="booking" id="booking">
+<div class="heading">
+<h2>Need Assembly Help?</h2>
+<p>Tell us what you need. Start with a service request.</p>
+</div>
+<form id="bookingForm">
+<input id="customer" type="text" placeholder="Your Name" required>
+<input id="city" type="text" value="Pune" placeholder="Your City" required>
+<select id="service" required>
+<option value="">Select a Service</option>
+<option>Furniture Assembly</option>
+<option>Office Chair Assembly</option>
+<option>Home Products Assembly</option>
+<option>Installation Support</option>
+</select>
+<textarea id="details" rows="3" placeholder="Tell us about your product"></textarea>
+<button class="btn" type="submit">Submit Demo Request</button>
+</form>
+<p id="message"></p>
+</section>
+
+<footer>
+<p>© 2026 AssembleKaro. All Rights Reserved.</p>
+<p>Assembly Made Easy. 🟠</p>
+</footer>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit",function(e){
+e.preventDefault();
+document.getElementById("message").textContent =
+"Demo request received on this page. Online booking is not connected yet.";
+this.reset();
+});
+</script>
+</body>
+</html>
