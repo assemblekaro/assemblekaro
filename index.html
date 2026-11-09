@@ -1,133 +1,932 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="IEvLKqMOyQzTODv6-pS1dNoSHWL2JCHty_bCo0u7r3w" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AssembleKaro | Furniture Assembly in Pune</title>
-  <meta name="description" content="Looking for furniture assembly in Pune? AssembleKaro provides professional furniture assembly, office chair assembly and home installation services.">
+<meta name="google-site-verification" content="IEvLKqMOyQzTODv6-pS1dNoSHWL2JCHty_bCo0u7r3w">
+
+<title>AssembleKaro | Furniture Assembly & Installation in Pune</title>
+<meta name="description" content="Book furniture assembly, office chair assembly and home installation services in Pune with AssembleKaro. Assembly Made Easy.">
+<meta name="theme-color" content="#101010">
+
 <style>
+:root{
+--orange:#ff791b;
+--black:#101010;
+--panel:#1b1b1b;
+--white:#fff;
+--muted:#aaa;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#101010;color:white;line-height:1.6}
-header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333}
-.logo{font-size:25px;font-weight:bold;color:#ff791b}
-.logo span{color:white}
-nav a{color:white;text-decoration:none;margin-left:20px;font-size:14px}
-.hero{padding:90px 7%;background:linear-gradient(120deg,#171717,#29201a)}
-.hero h1{font-size:clamp(36px,6vw,65px);line-height:1.15;max-width:750px}
-.hero h1 span{color:#ff791b}
-.hero p{color:#ccc;margin:22px 0;max-width:550px}
-.btn{display:inline-block;background:#ff791b;color:#111;padding:13px 24px;border-radius:6px;text-decoration:none;font-weight:bold;border:0;cursor:pointer}
-section{padding:65px 7%}
-.heading{text-align:center;margin-bottom:35px}
-.heading h2{font-size:32px}
-.heading p{color:#aaa}
-.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.service{background:#1e1e1e;border:1px solid #333;padding:25px;border-radius:12px}
-.service .emoji{font-size:35px}
-.service h3{margin:12px 0;color:#ff791b}
-.service p{color:#bbb;font-size:14px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;text-align:center}
-.step{background:#1e1e1e;padding:25px;border-radius:10px}
-.step b{font-size:30px;color:#ff791b}
-.booking{background:#1b1b1b;text-align:center}
-.booking form{max-width:500px;margin:25px auto;display:grid;gap:13px}
-input,select,textarea{width:100%;padding:14px;border-radius:6px;border:1px solid #555;background:#292929;color:white}
-footer{text-align:center;padding:25px;color:#aaa;border-top:1px solid #333}
-@media(max-width:600px){header{padding:15px 5%}nav a{margin-left:8px;font-size:12px}.hero{padding:65px 6%}section{padding:50px 6%}}
+html{scroll-behavior:smooth}
+body{
+font-family:Arial,sans-serif;
+background:var(--black);
+color:var(--white);
+line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+.container{width:min(1120px,90%);margin:auto}
+
+/* HEADER */
+header{
+position:sticky;top:0;z-index:100;
+background:rgba(16,16,16,.97);
+border-bottom:1px solid #303030;
+}
+.nav{
+min-height:76px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:48px;height:48px;object-fit:contain}
+.brand-name{font-size:23px;font-weight:800}
+.brand-name span{color:var(--orange)}
+.nav-links{display:flex;align-items:center;gap:25px}
+.nav-links a{font-size:14px;color:#ddd}
+.nav-links a:hover{color:var(--orange)}
+.nav-cta{
+background:var(--orange);
+color:#111!important;
+padding:10px 17px;
+border-radius:6px;
+font-weight:bold;
+}
+.menu-btn{
+display:none;
+background:none;color:white;
+border:1px solid #555;
+padding:8px 12px;
+border-radius:6px;
+}
+
+/* HERO */
+.hero{
+padding:105px 0;
+background:
+radial-gradient(ellipse at 85% 20%,#492614 0%,transparent 40%),
+linear-gradient(130deg,#191919,#101010);
+}
+.eyebrow{
+display:inline-block;
+color:var(--orange);
+border:1px solid #75401e;
+padding:7px 14px;
+border-radius:30px;
+font-size:12px;
+letter-spacing:1.5px;
+text-transform:uppercase;
+}
+.hero h1{
+font-size:clamp(42px,7vw,72px);
+line-height:1.08;
+margin:25px 0 20px;
+letter-spacing:-2px;
+max-width:800px;
+}
+.hero h1 span{color:var(--orange)}
+.hero p{color:#bbb;max-width:600px;font-size:17px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.btn{
+display:inline-flex;
+justify-content:center;
+align-items:center;
+padding:14px 23px;
+border-radius:7px;
+background:var(--orange);
+color:#111;
+font-weight:bold;
+border:1px solid var(--orange);
+cursor:pointer;
+transition:.2s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-outline{background:transparent;color:white;border-color:#555}
+.hero-note{color:#888;font-size:13px;margin-top:23px}
+
+/* TRUST */
+.trust{
+background:#151515;
+border-top:1px solid #292929;
+border-bottom:1px solid #292929;
+padding:23px 0;
+}
+.trust-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+text-align:center;
+}
+.trust-item strong{
+display:block;
+color:var(--orange);
+font-size:18px;
+}
+.trust-item small{color:#aaa}
+
+/* COMMON SECTIONS */
+section{padding:80px 0}
+.section-heading{text-align:center;margin-bottom:42px}
+.tag{
+color:var(--orange);
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+font-weight:bold;
+}
+.section-heading h2{
+font-size:clamp(29px,4vw,40px);
+margin:9px 0;
+}
+.section-heading p{color:var(--muted);max-width:600px;margin:auto}
+
+/* SERVICES */
+.services-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+}
+.service-card{
+background:var(--panel);
+border:1px solid #303030;
+padding:27px 22px;
+border-radius:13px;
+transition:.25s;
+}
+.service-card:hover{
+transform:translateY(-5px);
+border-color:var(--orange);
+}
+.service-icon{font-size:36px}
+.service-card h3{
+color:var(--orange);
+font-size:19px;
+margin:14px 0 8px;
+}
+.service-card p{font-size:14px;color:#aaa}
+.service-card a{
+display:inline-block;
+margin-top:17px;
+font-size:13px;
+color:white;
+}
+
+/* ABOUT */
+.about-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:45px;
+align-items:center;
+}
+.about-panel{
+background:linear-gradient(135deg,#352217,#191919);
+border:1px solid #4a301e;
+border-radius:16px;
+padding:38px;
+}
+.big-icon{font-size:65px}
+.about-panel h3{font-size:28px;margin:15px 0}
+.about-panel p,.about-copy p{color:#aaa}
+.about-copy h2{
+font-size:36px;
+line-height:1.2;
+margin:12px 0 18px;
+}
+.about-copy h2 span{color:var(--orange)}
+.about-copy ul{list-style:none;margin-top:20px}
+.about-copy li{margin:12px 0;color:#ddd}
+.about-copy li:before{
+content:"✓";
+color:var(--orange);
+margin-right:12px;
+font-weight:bold;
+}
+
+/* HOW IT WORKS */
+.steps{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+.step{
+padding:28px;
+background:var(--panel);
+border:1px solid #303030;
+border-radius:12px;
+}
+.step-number{
+font-size:36px;
+color:var(--orange);
+font-weight:bold;
+}
+.step h3{margin:10px 0}
+.step p{color:#aaa;font-size:14px}
+
+/* BOOKING */
+.booking-section{
+background:linear-gradient(135deg,#1d1d1d,#17130f);
+border-top:1px solid #30271f;
+border-bottom:1px solid #30271f;
+}
+.booking-layout{
+display:grid;
+grid-template-columns:.8fr 1.2fr;
+gap:40px;
+align-items:start;
+}
+.booking-info h2{
+font-size:39px;
+line-height:1.2;
+margin:15px 0;
+}
+.booking-info h2 span{color:var(--orange)}
+.booking-info p{color:#aaa}
+.booking-info .contact-note{margin-top:25px;font-size:14px}
+.booking-form{
+background:#202020;
+padding:30px;
+border:1px solid #393939;
+border-radius:14px;
+}
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+.field{margin-bottom:15px}
+.field label{
+display:block;
+font-size:13px;
+color:#ddd;
+margin-bottom:7px;
+}
+input,select,textarea{
+width:100%;
+padding:13px;
+background:#151515;
+border:1px solid #414141;
+color:white;
+border-radius:6px;
+outline:none;
+}
+input:focus,select:focus,textarea:focus{
+border-color:var(--orange);
+}
+textarea{resize:vertical}
+.booking-form .btn{width:100%;margin-top:5px}
+.form-note{color:#888;font-size:12px;margin-top:12px}
+#formMessage{margin-top:14px;color:#ffad76;font-size:13px}
+
+/* FOOTER */
+footer{
+padding:35px 0;
+border-top:1px solid #303030;
+}
+.footer-inner{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+}
+.footer-brand{font-size:22px;font-weight:bold}
+.footer-brand span{color:var(--orange)}
+.footer-inner p{font-size:13px;color:#999}
+.footer-links{display:flex;gap:18px;font-size:13px;color:#bbb}
+
+/* ADMIN DEMO */
+.admin-area{padding:65px 0;display:none}
+.admin-box{
+background:#1c1c1c;
+padding:25px;
+border:1px solid #444;
+border-radius:12px;
+overflow-x:auto;
+}
+.admin-box h2{margin-bottom:15px}
+.login-box{max-width:400px;margin:auto}
+.login-box input{margin:12px 0}
+.admin-controls{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:20px;
+}
+.admin-table{
+width:100%;
+border-collapse:collapse;
+min-width:650px;
+}
+.admin-table th,.admin-table td{
+padding:12px;
+border-bottom:1px solid #444;
+text-align:left;
+font-size:13px;
+}
+.admin-table th{color:var(--orange)}
+.admin-btn{
+background:#333;
+color:white;
+border:0;
+border-radius:5px;
+padding:8px 12px;
+cursor:pointer;
+}
+.danger{background:#812d2d}
+
+@media(max-width:850px){
+.services-grid{grid-template-columns:repeat(2,1fr)}
+.about-grid,.booking-layout{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+.nav{min-height:66px}
+.menu-btn{display:block}
+.nav-links{
+display:none;
+position:absolute;
+top:66px;
+left:0;right:0;
+background:#151515;
+padding:20px;
+flex-direction:column;
+align-items:stretch;
+gap:18px;
+border-bottom:1px solid #333;
+}
+.nav-links.open{display:flex}
+.hero{padding:75px 0}
+.hero h1{letter-spacing:-1px}
+.trust-grid{grid-template-columns:1fr}
+section{padding:60px 0}
+.services-grid,.steps{grid-template-columns:1fr}
+.form-grid{grid-template-columns:1fr}
+.booking-form{padding:20px}
+.about-panel{padding:25px}
+.footer-inner{flex-direction:column;text-align:center}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<div class="logo">Assemble<span>Karo</span> 🟠</div>
-<nav>
+<div class="container nav">
+<a href="#" class="brand">
+<img src="assets/assemblekaro-logo.png"
+alt="AssembleKaro Logo"
+onerror="this.style.display='none'">
+<div class="brand-name">Assemble<span>Karo</span></div>
+</a>
+
+<button class="menu-btn" id="menuBtn">☰</button>
+
+<nav class="nav-links" id="navLinks">
 <a href="#services">Services</a>
+<a href="#about">About</a>
 <a href="#how">How It Works</a>
-<a href="#booking">Book Now</a>
+<a href="#booking" class="nav-cta">Book a Service</a>
 </nav>
+</div>
 </header>
 
+<main id="mainSite">
+
 <div class="hero">
-<h1>Furniture Assembly Services in <span>Pune.</span></h1>
-<p>Furniture, office chairs and home products assembled by skilled professionals. Book an assembly service with AssembleKaro.</p>
-<a class="btn" href="#booking">Explore Our Services →</a>
+<div class="container">
+<span class="eyebrow">Your Assembly Partner in Pune</span>
+
+<h1>Assembly Made <span>Easy.</span></h1>
+
+<p>
+From furniture and office chairs to everyday home products,
+get convenient assembly and installation assistance with AssembleKaro.
+</p>
+
+<div class="hero-actions">
+<a href="#booking" class="btn">Book a Service →</a>
+<a href="#services" class="btn btn-outline">Explore Services</a>
+</div>
+
+<div class="hero-note">
+Simple booking. Convenient service. Better experiences.
+</div>
+</div>
+</div>
+
+<div class="trust">
+<div class="container trust-grid">
+<div class="trust-item">
+<strong>Furniture</strong>
+<small>Assembly Assistance</small>
+</div>
+<div class="trust-item">
+<strong>Office Chairs</strong>
+<small>Setup & Assembly</small>
+</div>
+<div class="trust-item">
+<strong>Pune</strong>
+<small>Our Launch City</small>
+</div>
+</div>
 </div>
 
 <section id="services">
-<div class="heading">
+<div class="container">
+<div class="section-heading">
+<span class="tag">What We Do</span>
 <h2>Our Services</h2>
-<p>We make your assembly experience simple and convenient.</p>
+<p>Practical assembly support for your home and workspace.</p>
 </div>
-<div class="services">
-<div class="service">
-<div class="emoji">🛏️</div>
+
+<div class="services-grid">
+
+<div class="service-card">
+<div class="service-icon">🛏️</div>
 <h3>Furniture Assembly</h3>
-<p>Beds, wardrobes, tables, sofas and other furniture.</p>
+<p>Beds, wardrobes, tables, sofas and other ready-to-assemble furniture.</p>
+<a href="#booking">Book this service →</a>
 </div>
-<div class="service">
-<div class="emoji">🪑</div>
+
+<div class="service-card">
+<div class="service-icon">🪑</div>
 <h3>Office Chair Assembly</h3>
-<p>Professional assembly of office and study chairs.</p>
+<p>Office, ergonomic, gaming and study chair assembly assistance.</p>
+<a href="#booking">Book this service →</a>
 </div>
-<div class="service">
-<div class="emoji">🏠</div>
+
+<div class="service-card">
+<div class="service-icon">🏠</div>
 <h3>Home Products</h3>
-<p>Help with assembling various household products.</p>
+<p>Help with assembling selected household products and accessories.</p>
+<a href="#booking">Book this service →</a>
 </div>
-<div class="service">
-<div class="emoji">🔧</div>
+
+<div class="service-card">
+<div class="service-icon">🔧</div>
 <h3>Installation Support</h3>
-<p>Convenient installation assistance for selected products.</p>
+<p>Installation assistance for selected products based on requirements.</p>
+<a href="#booking">Book this service →</a>
 </div>
+
+</div>
+</div>
+</section>
+
+<section id="about">
+<div class="container about-grid">
+
+<div class="about-panel">
+<div class="big-icon">🧰</div>
+<h3>Less Hassle.<br>More Enjoyment.</h3>
+<p>
+We want to make the experience after purchasing a product
+simpler and more convenient.
+</p>
+</div>
+
+<div class="about-copy">
+<span class="tag">About AssembleKaro</span>
+<h2>Your products deserve a <span>perfect setup.</span></h2>
+<p>
+AssembleKaro is building a convenient service platform
+connecting customers with assembly professionals for furniture,
+office chairs and selected home products.
+</p>
+<ul>
+<li>Easy service request process</li>
+<li>Convenient communication</li>
+<li>Service requirements shared in advance</li>
+<li>Designed around customer convenience</li>
+</ul>
+</div>
+
 </div>
 </section>
 
 <section id="how">
-<div class="heading">
+<div class="container">
+<div class="section-heading">
+<span class="tag">Simple Process</span>
 <h2>How It Works</h2>
-<p>Three simple steps to get started.</p>
+<p>Getting started takes just three simple steps.</p>
 </div>
+
 <div class="steps">
-<div class="step"><b>01</b><h3>Choose Service</h3><p>Select the product you need assembled.</p></div>
-<div class="step"><b>02</b><h3>Request Booking</h3><p>Share your service requirements.</p></div>
-<div class="step"><b>03</b><h3>Get Assembly Help</h3><p>Connect with an assembly professional.</p></div>
+<div class="step">
+<div class="step-number">01</div>
+<h3>Choose Your Service</h3>
+<p>Select the product or assembly assistance you need.</p>
+</div>
+
+<div class="step">
+<div class="step-number">02</div>
+<h3>Share Your Details</h3>
+<p>Submit your location, product details and preferred date.</p>
+</div>
+
+<div class="step">
+<div class="step-number">03</div>
+<h3>Confirm Your Booking</h3>
+<p>Connect with our team to discuss availability and pricing.</p>
+</div>
+</div>
 </div>
 </section>
 
-<section class="booking" id="booking">
-<div class="heading">
-<h2>Need Assembly Help?</h2>
-<p>Tell us what you need. Start with a service request.</p>
+<section class="booking-section" id="booking">
+<div class="container booking-layout">
+
+<div class="booking-info">
+<span class="tag">Get Started</span>
+<h2>Need a hand with <span>assembly?</span></h2>
+<p>
+Tell us what you need. Share your requirements and our team
+can follow up to discuss the next steps.
+</p>
+<p class="contact-note">
+Submit your service request and continue to WhatsApp
+to discuss availability and pricing.
+</p>
 </div>
-<form id="bookingForm">
-<input id="customer" type="text" placeholder="Your Name" required>
-<input id="city" type="text" value="Pune" placeholder="Your City" required>
+
+<form class="booking-form" id="bookingForm">
+
+<div class="form-grid">
+<div class="field">
+<label for="customer">Full Name *</label>
+<input id="customer" type="text" placeholder="Your name" required maxlength="80">
+</div>
+
+<div class="field">
+<label for="phone">Mobile Number *</label>
+<input id="phone" type="tel" placeholder="10-digit mobile number"
+pattern="[6-9][0-9]{9}" maxlength="10" required>
+</div>
+</div>
+
+<div class="form-grid">
+<div class="field">
+<label for="city">City *</label>
+<input id="city" type="text" value="Pune" required>
+</div>
+
+<div class="field">
+<label for="area">Area / Locality *</label>
+<input id="area" type="text" placeholder="e.g. Baner" required>
+</div>
+</div>
+
+<div class="form-grid">
+<div class="field">
+<label for="service">Select Service *</label>
 <select id="service" required>
-<option value="">Select a Service</option>
+<option value="">Choose service</option>
 <option>Furniture Assembly</option>
 <option>Office Chair Assembly</option>
 <option>Home Products Assembly</option>
 <option>Installation Support</option>
 </select>
-<textarea id="details" rows="3" placeholder="Tell us about your product"></textarea>
-<button class="btn" type="submit">Submit Demo Request</button>
+</div>
+
+<div class="field">
+<label for="product">Product Type</label>
+<input id="product" type="text" placeholder="e.g. Queen bed">
+</div>
+</div>
+
+<div class="form-grid">
+<div class="field">
+<label for="date">Preferred Date</label>
+<input id="date" type="date">
+</div>
+
+<div class="field">
+<label for="quantity">Quantity</label>
+<input id="quantity" type="number" min="1" max="100" value="1">
+</div>
+</div>
+
+<div class="field">
+<label for="details">Additional Details</label>
+<textarea id="details" rows="3"
+placeholder="Share product details or special requirements"></textarea>
+</div>
+
+<button type="submit" class="btn">
+Submit & Continue to WhatsApp →
+</button>
+
+<p class="form-note">
+Demo version: booking records are stored only in this browser.
+Online shared booking storage will be connected separately.
+</p>
+
+<p id="formMessage" role="status"></p>
 </form>
-<p id="message"></p>
+</div>
+</section>
+
+</main>
+
+<!-- ADMIN DASHBOARD DEMO -->
+
+<section class="admin-area" id="adminArea">
+<div class="container">
+
+<div class="admin-box login-box" id="loginBox">
+<h2>AssembleKaro Admin</h2>
+<p style="color:#aaa">Demo dashboard access</p>
+<input id="adminPin" type="password" placeholder="Enter demo PIN">
+<button class="btn" id="loginBtn" type="button">Login</button>
+<p id="loginMessage" style="color:#ffad76;margin-top:10px"></p>
+<p class="form-note">Demo PIN: 2580. This is not secure authentication.</p>
+</div>
+
+<div class="admin-box" id="dashboardBox" hidden>
+<h2>Booking Dashboard</h2>
+
+<div class="admin-controls">
+<button class="admin-btn" onclick="renderBookings()">Refresh</button>
+<button class="admin-btn" onclick="exportBookings()">Export CSV</button>
+<button class="admin-btn danger" onclick="clearBookings()">Clear All</button>
+<button class="admin-btn" onclick="logoutAdmin()">Logout</button>
+</div>
+
+<p id="bookingCount" style="color:#aaa;margin-bottom:15px"></p>
+
+<table class="admin-table">
+<thead>
+<tr>
+<th>Date</th>
+<th>Customer</th>
+<th>Phone</th>
+<th>Service</th>
+<th>Location</th>
+<th>Details</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="bookingRows"></tbody>
+</table>
+</div>
+
+</div>
 </section>
 
 <footer>
+<div class="container footer-inner">
+
+<div>
+<div class="footer-brand">Assemble<span>Karo</span></div>
+<p>Assembly Made Easy.</p>
+</div>
+
+<div class="footer-links">
+<a href="#services">Services</a>
+<a href="#about">About</a>
+<a href="#booking">Book Now</a>
+</div>
+
 <p>© 2026 AssembleKaro. All Rights Reserved.</p>
-<p>Assembly Made Easy. 🟠</p>
+
+</div>
 </footer>
 
 <script>
-document.getElementById("bookingForm").addEventListener("submit",function(e){
-e.preventDefault();
-document.getElementById("message").textContent =
-"Demo request received on this page. Online booking is not connected yet.";
-this.reset();
+
+/* ADD YOUR OFFICIAL WHATSAPP NUMBER LATER.
+   Format: 91XXXXXXXXXX (country code + number)
+*/
+const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+
+/* MOBILE MENU */
+document.getElementById("menuBtn").addEventListener("click",function(){
+document.getElementById("navLinks").classList.toggle("open");
 });
+
+document.querySelectorAll("#navLinks a").forEach(link=>{
+link.addEventListener("click",()=>{
+document.getElementById("navLinks").classList.remove("open");
+});
+});
+
+/* DEMO BOOKING STORAGE */
+function getBookings(){
+try{
+return JSON.parse(localStorage.getItem("assembleKaroBookings")||"[]");
+}catch(error){
+return [];
+}
+}
+
+function saveBookings(bookings){
+localStorage.setItem("assembleKaroBookings",JSON.stringify(bookings));
+}
+
+/* BOOKING FORM */
+document.getElementById("bookingForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const booking={
+id:Date.now(),
+createdAt:new Date().toLocaleString("en-IN"),
+name:document.getElementById("customer").value.trim(),
+phone:document.getElementById("phone").value.trim(),
+city:document.getElementById("city").value.trim(),
+area:document.getElementById("area").value.trim(),
+service:document.getElementById("service").value,
+product:document.getElementById("product").value.trim(),
+date:document.getElementById("date").value,
+quantity:document.getElementById("quantity").value,
+details:document.getElementById("details").value.trim()
+};
+
+const bookings=getBookings();
+bookings.unshift(booking);
+saveBookings(bookings);
+
+const message=
+`Hello AssembleKaro! I want to request a service.
+
+Booking ID: ${booking.id}
+Name: ${booking.name}
+Mobile: ${booking.phone}
+City: ${booking.city}
+Area: ${booking.area}
+Service: ${booking.service}
+Product: ${booking.product||"Not specified"}
+Quantity: ${booking.quantity}
+Preferred Date: ${booking.date||"Flexible"}
+Details: ${booking.details||"None"}
+
+Please share availability and pricing.`;
+
+const status=document.getElementById("formMessage");
+
+if(WHATSAPP_NUMBER.includes("X")){
+status.textContent="Demo booking saved in this browser. WhatsApp number is not configured yet.";
+return;
+}
+
+status.textContent="Booking saved. Opening WhatsApp...";
+
+const whatsappURL="https://wa.me/"+WHATSAPP_NUMBER+
+"?text="+encodeURIComponent(message);
+
+window.open(whatsappURL,"_blank");
+
+this.reset();
+document.getElementById("city").value="Pune";
+document.getElementById("quantity").value="1";
+
+});
+
+/* DEMO ADMIN DASHBOARD */
+const ADMIN_PIN="2580";
+
+function showAdmin(){
+document.getElementById("mainSite").style.display="none";
+document.querySelector("footer").style.display="none";
+document.getElementById("adminArea").style.display="block";
+}
+
+if(new URLSearchParams(location.search).get("admin")==="1"){
+showAdmin();
+}
+
+document.getElementById("loginBtn").addEventListener("click",function(){
+
+const pin=document.getElementById("adminPin").value;
+
+if(pin===ADMIN_PIN){
+document.getElementById("loginBox").hidden=true;
+document.getElementById("dashboardBox").hidden=false;
+renderBookings();
+}else{
+document.getElementById("loginMessage").textContent="Incorrect demo PIN.";
+}
+
+});
+
+function renderBookings(){
+
+const bookings=getBookings();
+
+document.getElementById("bookingCount").textContent=
+"Total demo bookings: "+bookings.length;
+
+const rows=document.getElementById("bookingRows");
+rows.innerHTML="";
+
+bookings.forEach(b=>{
+
+const tr=document.createElement("tr");
+
+const values=[
+b.createdAt,
+b.name,
+b.phone,
+b.service,
+b.area+", "+b.city,
+[b.product,b.details].filter(Boolean).join(" - ")||"—"
+];
+
+values.forEach(value=>{
+const td=document.createElement("td");
+td.textContent=value;
+tr.appendChild(td);
+});
+
+const action=document.createElement("td");
+const button=document.createElement("button");
+
+button.className="admin-btn danger";
+button.textContent="Delete";
+button.onclick=()=>deleteBooking(b.id);
+
+action.appendChild(button);
+tr.appendChild(action);
+rows.appendChild(tr);
+
+});
+
+if(!bookings.length){
+rows.innerHTML='<tr><td colspan="7">No demo bookings yet.</td></tr>';
+}
+
+}
+
+function deleteBooking(id){
+
+if(!confirm("Delete this demo booking?"))return;
+
+saveBookings(getBookings().filter(b=>b.id!==id));
+renderBookings();
+
+}
+
+function clearBookings(){
+
+if(!confirm("Delete all demo bookings?"))return;
+
+saveBookings([]);
+renderBookings();
+
+}
+
+function exportBookings(){
+
+const bookings=getBookings();
+
+if(!booking 
+  bookings.length){
+alert("No bookings to export.");
+return;
+}
+
+const headers=[
+"ID","Created","Name","Phone","City","Area",
+"Service","Product","Date","Quantity","Details"
+];
+
+const escapeCSV=value=>
+'"'+String(value??"").replace(/"/g,'""')+'"';
+
+const data=bookings.map(b=>[
+b.id,b.createdAt,b.name,b.phone,b.city,b.area,
+b.service,b.product,b.date,b.quantity,b.details
+]);
+
+const csv=[headers,...data]
+.map(row=>row.map(escapeCSV).join(","))
+.join("\n");
+
+const blob=new Blob([csv],{
+type:"text/csv;charset=utf-8;"
+});
+
+const url=URL.createObjectURL(blob);
+const a=document.createElement("a");
+
+a.href=url;
+a.download="assemblekaro-demo-bookings.csv";
+a.click();
+
+URL.revokeObjectURL(url);
+
+}
+
+function logoutAdmin(){
+document.getElementById("dashboardBox").hidden=true;
+document.getElementById("loginBox").hidden=false;
+document.getElementById("adminPin").value="";
+}
+
 </script>
 </body>
 </html>
