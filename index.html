@@ -382,7 +382,7 @@ onerror="this.style.display='none'">
 <div class="brand-name">Assemble<span>Karo</span></div>
 </a>
 
-<button class="menu-btn" id="menuBtn">☰</button>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
 
 <nav class="nav-links" id="navLinks">
 <a href="#services">Services</a>
@@ -621,8 +621,7 @@ Submit & Continue to WhatsApp →
 </button>
 
 <p class="form-note">
-Demo version: booking records are stored only in this browser.
-Online shared booking storage will be connected separately.
+Until online booking is enabled, requests are stored only in this browser and are not sent to our team automatically.
 </p>
 
 <p id="formMessage" role="status"></p>
@@ -639,11 +638,8 @@ Online shared booking storage will be connected separately.
 
 <div class="admin-box login-box" id="loginBox">
 <h2>AssembleKaro Admin</h2>
-<p style="color:#aaa">Demo dashboard access</p>
-<input id="adminPin" type="password" placeholder="Enter demo PIN">
-<button class="btn" id="loginBtn" type="button">Login</button>
-<p id="loginMessage" style="color:#ffad76;margin-top:10px"></p>
-<p class="form-note">Demo PIN: 2580. This is not secure authentication.</p>
+<p style="color:#aaa">Admin access is temporarily disabled.</p>
+<p id="loginMessage" style="color:#ffad76;margin-top:10px">The previous client-side demo PIN was not secure. Admin access will be enabled after secure Supabase authentication is configured.</p>
 </div>
 
 <div class="admin-box" id="dashboardBox" hidden>
@@ -697,61 +693,81 @@ Online shared booking storage will be connected separately.
 </footer>
 
 <script>
-
-/* ADD YOUR OFFICIAL WHATSAPP NUMBER LATER.
-   Format: 91XXXXXXXXXX (country code + number)
+/* CONFIGURATION
+   Add your official WhatsApp number in international format, digits only.
+   Example format: 91XXXXXXXXXX. Leave blank until the number is confirmed.
 */
-const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+const WHATSAPP_NUMBER = "";
 
 /* MOBILE MENU */
-document.getElementById("menuBtn").addEventListener("click",function(){
-document.getElementById("navLinks").classList.toggle("open");
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", function () {
+  const isOpen = navLinks.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", String(isOpen));
+  menuBtn.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
 });
 
-document.querySelectorAll("#navLinks a").forEach(link=>{
-link.addEventListener("click",()=>{
-document.getElementById("navLinks").classList.remove("open");
-});
+document.querySelectorAll("#navLinks a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Open navigation menu");
+  });
 });
 
-/* DEMO BOOKING STORAGE */
-function getBookings(){
-try{
-return JSON.parse(localStorage.getItem("assembleKaroBookings")||"[]");
-}catch(error){
-return [];
+/* LOCAL DEMO BOOKING STORAGE
+   This is browser-only storage, not a shared or production booking database.
+*/
+function getBookings() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("assembleKaroBookings") || "[]");
+    return Array.isArray(saved) ? saved : [];
+  } catch (error) {
+    console.error("Could not read local bookings:", error);
+    return [];
+  }
 }
-}
 
-function saveBookings(bookings){
-localStorage.setItem("assembleKaroBookings",JSON.stringify(bookings));
+function saveBookings(bookings) {
+  try {
+    localStorage.setItem("assembleKaroBookings", JSON.stringify(bookings));
+    return true;
+  } catch (error) {
+    console.error("Could not save local booking:", error);
+    return false;
+  }
 }
 
 /* BOOKING FORM */
-document.getElementById("bookingForm").addEventListener("submit",function(e){
+document.getElementById("bookingForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-e.preventDefault();
+  const booking = {
+    id: Date.now(),
+    createdAt: new Date().toLocaleString("en-IN"),
+    name: document.getElementById("customer").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    city: document.getElementById("city").value.trim(),
+    area: document.getElementById("area").value.trim(),
+    service: document.getElementById("service").value,
+    product: document.getElementById("product").value.trim(),
+    date: document.getElementById("date").value,
+    quantity: document.getElementById("quantity").value,
+    details: document.getElementById("details").value.trim()
+  };
 
-const booking={
-id:Date.now(),
-createdAt:new Date().toLocaleString("en-IN"),
-name:document.getElementById("customer").value.trim(),
-phone:document.getElementById("phone").value.trim(),
-city:document.getElementById("city").value.trim(),
-area:document.getElementById("area").value.trim(),
-service:document.getElementById("service").value,
-product:document.getElementById("product").value.trim(),
-date:document.getElementById("date").value,
-quantity:document.getElementById("quantity").value,
-details:document.getElementById("details").value.trim()
-};
+  const status = document.getElementById("formMessage");
+  const bookings = getBookings();
+  const saved = saveBookings([booking, ...bookings]);
 
-const bookings=getBookings();
-bookings.unshift(booking);
-saveBookings(bookings);
+  if (!saved) {
+    status.textContent = "We couldn't save this request in this browser. Please try again or contact our team directly.";
+    return;
+  }
 
-const message=
-`Hello AssembleKaro! I want to request a service.
+  const message = `Hello AssembleKaro! I want to request a service.
 
 Booking ID: ${booking.id}
 Name: ${booking.name}
@@ -759,174 +775,125 @@ Mobile: ${booking.phone}
 City: ${booking.city}
 Area: ${booking.area}
 Service: ${booking.service}
-Product: ${booking.product||"Not specified"}
+Product: ${booking.product || "Not specified"}
 Quantity: ${booking.quantity}
-Preferred Date: ${booking.date||"Flexible"}
-Details: ${booking.details||"None"}
+Preferred Date: ${booking.date || "Flexible"}
+Details: ${booking.details || "None"}
 
 Please share availability and pricing.`;
 
-const status=document.getElementById("formMessage");
+  const whatsappNumber = String(WHATSAPP_NUMBER).replace(/\D/g, "");
+  const whatsappConfigured = /^\d{10,15}$/.test(whatsappNumber);
 
-if(WHATSAPP_NUMBER.includes("X")){
-status.textContent="Demo booking saved in this browser. WhatsApp number is not configured yet.";
-return;
-}
+  if (whatsappConfigured) {
+    const whatsappURL = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+    const whatsappWindow = window.open(whatsappURL, "_blank");
 
-status.textContent="Booking saved. Opening WhatsApp...";
+    if (whatsappWindow) {
+      whatsappWindow.opener = null;
+      status.textContent = "Your request has been saved in this browser. WhatsApp is opening so you can send the details to our team.";
+    } else {
+      status.textContent = "Your request is saved in this browser, but WhatsApp could not open. Please allow pop-ups or contact our team.";
+    }
+  } else {
+    status.textContent = "Demo only: your request is saved on this device, but it has NOT been sent to AssembleKaro. WhatsApp booking is not configured yet.";
+  }
 
-const whatsappURL="https://wa.me/"+WHATSAPP_NUMBER+
-"?text="+encodeURIComponent(message);
-
-window.open(whatsappURL,"_blank");
-
-this.reset();
-document.getElementById("city").value="Pune";
-document.getElementById("quantity").value="1";
-
+  this.reset();
+  document.getElementById("city").value = "Pune";
+  document.getElementById("quantity").value = "1";
 });
 
-/* DEMO ADMIN DASHBOARD */
-const ADMIN_PIN="2580";
-
-function showAdmin(){
-document.getElementById("mainSite").style.display="none";
-document.querySelector("footer").style.display="none";
-document.getElementById("adminArea").style.display="block";
+/* ADMIN DASHBOARD SAFETY
+   Client-side PIN checks are not authentication. Dashboard login is disabled
+   until server-side/Supabase authentication and database access policies exist.
+*/
+function showAdmin() {
+  document.getElementById("mainSite").style.display = "none";
+  document.querySelector("footer").style.display = "none";
+  document.getElementById("adminArea").style.display = "block";
 }
 
-if(new URLSearchParams(location.search).get("admin")==="1"){
-showAdmin();
+if (new URLSearchParams(location.search).get("admin") === "1") {
+  showAdmin();
 }
 
-document.getElementById("loginBtn").addEventListener("click",function(){
+/* The following functions remain for the local demo dashboard only.
+   They are not exposed through an insecure client-side login.
+*/
+function renderBookings() {
+  const bookings = getBookings();
+  document.getElementById("bookingCount").textContent = "Total local demo bookings: " + bookings.length;
+  const rows = document.getElementById("bookingRows");
+  rows.replaceChildren();
 
-const pin=document.getElementById("adminPin").value;
+  bookings.forEach(b => {
+    const tr = document.createElement("tr");
+    const values = [b.createdAt, b.name, b.phone, b.service, b.area + ", " + b.city, [b.product, b.details].filter(Boolean).join(" - ") || "—"];
+    values.forEach(value => {
+      const td = document.createElement("td");
+      td.textContent = value ?? "";
+      tr.appendChild(td);
+    });
+    const action = document.createElement("td");
+    const button = document.createElement("button");
+    button.className = "admin-btn danger";
+    button.textContent = "Delete";
+    button.addEventListener("click", () => deleteBooking(b.id));
+    action.appendChild(button);
+    tr.appendChild(action);
+    rows.appendChild(tr);
+  });
 
-if(pin===ADMIN_PIN){
-document.getElementById("loginBox").hidden=true;
-document.getElementById("dashboardBox").hidden=false;
-renderBookings();
-}else{
-document.getElementById("loginMessage").textContent="Incorrect demo PIN.";
+  if (!bookings.length) {
+    rows.innerHTML = '<tr><td colspan="7">No local demo bookings yet.</td></tr>';
+  }
 }
 
-});
-
-function renderBookings(){
-
-const bookings=getBookings();
-
-document.getElementById("bookingCount").textContent=
-"Total demo bookings: "+bookings.length;
-
-const rows=document.getElementById("bookingRows");
-rows.innerHTML="";
-
-bookings.forEach(b=>{
-
-const tr=document.createElement("tr");
-
-const values=[
-b.createdAt,
-b.name,
-b.phone,
-b.service,
-b.area+", "+b.city,
-[b.product,b.details].filter(Boolean).join(" - ")||"—"
-];
-
-values.forEach(value=>{
-const td=document.createElement("td");
-td.textContent=value;
-tr.appendChild(td);
-});
-
-const action=document.createElement("td");
-const button=document.createElement("button");
-
-button.className="admin-btn danger";
-button.textContent="Delete";
-button.onclick=()=>deleteBooking(b.id);
-
-action.appendChild(button);
-tr.appendChild(action);
-rows.appendChild(tr);
-
-});
-
-if(!bookings.length){
-rows.innerHTML='<tr><td colspan="7">No demo bookings yet.</td></tr>';
+function deleteBooking(id) {
+  if (!confirm("Delete this local demo booking?")) return;
+  if (!saveBookings(getBookings().filter(b => b.id !== id))) {
+    alert("Could not update local bookings.");
+    return;
+  }
+  renderBookings();
 }
 
+function clearBookings() {
+  if (!confirm("Delete all local demo bookings from this browser?")) return;
+  if (!saveBookings([])) {
+    alert("Could not clear local bookings.");
+    return;
+  }
+  renderBookings();
 }
 
-function deleteBooking(id){
+function exportBookings() {
+  const bookings = getBookings();
+  if (!bookings.length) {
+    alert("No bookings to export.");
+    return;
+  }
 
-if(!confirm("Delete this demo booking?"))return;
-
-saveBookings(getBookings().filter(b=>b.id!==id));
-renderBookings();
-
+  const headers = ["ID", "Created", "Name", "Phone", "City", "Area", "Service", "Product", "Date", "Quantity", "Details"];
+  const escapeCSV = value => '"' + String(value ?? "").replace(/"/g, '""') + '"';
+  const data = bookings.map(b => [b.id, b.createdAt, b.name, b.phone, b.city, b.area, b.service, b.product, b.date, b.quantity, b.details]);
+  const csv = [headers, ...data].map(row => row.map(escapeCSV).join(",")).join("\r\n");
+  const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "assemblekaro-demo-bookings.csv";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function clearBookings(){
-
-if(!confirm("Delete all demo bookings?"))return;
-
-saveBookings([]);
-renderBookings();
-
+function logoutAdmin() {
+  document.getElementById("dashboardBox").hidden = true;
+  document.getElementById("loginBox").hidden = false;
 }
-
-function exportBookings(){
-
-const bookings=getBookings();
-
-if(!booking 
-  bookings.length){
-alert("No bookings to export.");
-return;
-}
-
-const headers=[
-"ID","Created","Name","Phone","City","Area",
-"Service","Product","Date","Quantity","Details"
-];
-
-const escapeCSV=value=>
-'"'+String(value??"").replace(/"/g,'""')+'"';
-
-const data=bookings.map(b=>[
-b.id,b.createdAt,b.name,b.phone,b.city,b.area,
-b.service,b.product,b.date,b.quantity,b.details
-]);
-
-const csv=[headers,...data]
-.map(row=>row.map(escapeCSV).join(","))
-.join("\n");
-
-const blob=new Blob([csv],{
-type:"text/csv;charset=utf-8;"
-});
-
-const url=URL.createObjectURL(blob);
-const a=document.createElement("a");
-
-a.href=url;
-a.download="assemblekaro-demo-bookings.csv";
-a.click();
-
-URL.revokeObjectURL(url);
-
-}
-
-function logoutAdmin(){
-document.getElementById("dashboardBox").hidden=true;
-document.getElementById("loginBox").hidden=false;
-document.getElementById("adminPin").value="";
-}
-
 </script>
 </body>
 </html>
