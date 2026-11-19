@@ -571,12 +571,12 @@ pattern="[6-9][0-9]{9}" maxlength="10" required>
 <div class="form-grid">
 <div class="field">
 <label for="city">City *</label>
-<input id="city" type="text" value="Pune" required>
+<input id="city" type="text" value="Pune" maxlength="80" required>
 </div>
 
 <div class="field">
 <label for="area">Area / Locality *</label>
-<input id="area" type="text" placeholder="e.g. Baner" required>
+<input id="area" type="text" placeholder="e.g. Baner" maxlength="120" required>
 </div>
 </div>
 
@@ -594,7 +594,7 @@ pattern="[6-9][0-9]{9}" maxlength="10" required>
 
 <div class="field">
 <label for="product">Product Type</label>
-<input id="product" type="text" placeholder="e.g. Queen bed">
+<input id="product" type="text" placeholder="e.g. Queen bed" maxlength="150">
 </div>
 </div>
 
@@ -613,15 +613,15 @@ pattern="[6-9][0-9]{9}" maxlength="10" required>
 <div class="field">
 <label for="details">Additional Details</label>
 <textarea id="details" rows="3"
-placeholder="Share product details or special requirements"></textarea>
+placeholder="Share product details or special requirements" maxlength="2000"></textarea>
 </div>
 
 <button type="submit" class="btn">
-Submit & Continue to WhatsApp →
+Submit Service Request →
 </button>
 
 <p class="form-note">
-Until online booking is enabled, requests are stored only in this browser and are not sent to our team automatically.
+Your service request will be submitted to AssembleKaro online. Please wait for the confirmation message before closing this page.
 </p>
 
 <p id="formMessage" role="status"></p>
@@ -699,6 +699,10 @@ Until online booking is enabled, requests are stored only in this browser and ar
 */
 const WHATSAPP_NUMBER = "";
 
+// Supabase project configuration
+const SUPABASE_URL = "https://rhsbouedtmxedbxxcbcs.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_VmdaXJYkXzu_y0hbvnv0jw_s89T0hsh";
+
 /* MOBILE MENU */
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
@@ -740,68 +744,87 @@ function saveBookings(bookings) {
   }
 }
 
-/* BOOKING FORM */
-document.getElementById("bookingForm").addEventListener("submit", function (e) {
+/* BOOKING FORM — submit requests to Supabase */
+document.getElementById("bookingForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
+  const form = this;
+  const submitButton = form.querySelector('button[type="submit"]');
+  const status = document.getElementById("formMessage");
+
   const booking = {
-    id: Date.now(),
-    createdAt: new Date().toLocaleString("en-IN"),
-    name: document.getElementById("customer").value.trim(),
+    customer_name: document.getElementById("customer").value.trim(),
     phone: document.getElementById("phone").value.trim(),
     city: document.getElementById("city").value.trim(),
     area: document.getElementById("area").value.trim(),
     service: document.getElementById("service").value,
-    product: document.getElementById("product").value.trim(),
-    date: document.getElementById("date").value,
-    quantity: document.getElementById("quantity").value,
-    details: document.getElementById("details").value.trim()
+    product: document.getElementById("product").value.trim() || null,
+    preferred_date: document.getElementById("date").value || null,
+    quantity: Number(document.getElementById("quantity").value),
+    details: document.getElementById("details").value.trim() || null
   };
 
-  const status = document.getElementById("formMessage");
-  const bookings = getBookings();
-  const saved = saveBookings([booking, ...bookings]);
+  submitButton.disabled = true;
+  submitButton.textContent = "Submitting...";
 
-  if (!saved) {
-    status.textContent = "We couldn't save this request in this browser. Please try again or contact our team directly.";
-    return;
-  }
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_PUBLISHABLE_KEY,
+        "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(booking)
+    });
 
-  const message = `Hello AssembleKaro! I want to request a service.
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Supabase booking error:", response.status, errorText);
+      throw new Error("Booking could not be submitted. Please check your details and try again.");
+    }
 
-Booking ID: ${booking.id}
-Name: ${booking.name}
+    const message = `Hello AssembleKaro! I have submitted a service request.
+
+Name: ${booking.customer_name}
 Mobile: ${booking.phone}
 City: ${booking.city}
 Area: ${booking.area}
 Service: ${booking.service}
 Product: ${booking.product || "Not specified"}
 Quantity: ${booking.quantity}
-Preferred Date: ${booking.date || "Flexible"}
+Preferred Date: ${booking.preferred_date || "Flexible"}
 Details: ${booking.details || "None"}
 
 Please share availability and pricing.`;
 
-  const whatsappNumber = String(WHATSAPP_NUMBER).replace(/\D/g, "");
-  const whatsappConfigured = /^\d{10,15}$/.test(whatsappNumber);
+    status.textContent = "Your booking request has been submitted successfully to AssembleKaro.";
 
-  if (whatsappConfigured) {
-    const whatsappURL = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
-    const whatsappWindow = window.open(whatsappURL, "_blank");
+    const whatsappNumber = String(WHATSAPP_NUMBER).replace(/\D/g, "");
+    const whatsappConfigured = /^\d{10,15}$/.test(whatsappNumber);
 
-    if (whatsappWindow) {
-      whatsappWindow.opener = null;
-      status.textContent = "Your request has been saved in this browser. WhatsApp is opening so you can send the details to our team.";
-    } else {
-      status.textContent = "Your request is saved in this browser, but WhatsApp could not open. Please allow pop-ups or contact our team.";
+    if (whatsappConfigured) {
+      const whatsappURL = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+      const whatsappWindow = window.open(whatsappURL, "_blank");
+      if (whatsappWindow) {
+        whatsappWindow.opener = null;
+        status.textContent += " WhatsApp is opening so you can also message our team.";
+      } else {
+        status.textContent += " WhatsApp could not open; your online booking is already saved.";
+      }
     }
-  } else {
-    status.textContent = "Demo only: your request is saved on this device, but it has NOT been sent to AssembleKaro. WhatsApp booking is not configured yet.";
-  }
 
-  this.reset();
-  document.getElementById("city").value = "Pune";
-  document.getElementById("quantity").value = "1";
+    form.reset();
+    document.getElementById("city").value = "Pune";
+    document.getElementById("quantity").value = "1";
+  } catch (error) {
+    console.error(error);
+    status.textContent = error.message || "Something went wrong. Please try again.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit Service Request →";
+  }
 });
 
 /* ADMIN DASHBOARD SAFETY
