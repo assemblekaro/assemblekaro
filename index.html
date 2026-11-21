@@ -392,6 +392,183 @@ section{padding:60px 0}
  .admin-controls .admin-btn{flex:1}
 }
 
+/* ASSEMBLEKARO - FOUNDERS SECTION */
+
+.ak-founders {
+  background: #101010;
+  color: #fff;
+  padding: 90px 20px;
+  overflow: hidden;
+}
+
+.ak-container {
+  max-width: 1250px;
+  margin: auto;
+}
+
+.ak-heading {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.ak-eyebrow {
+  color: #ff791b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.ak-heading h2 {
+  font-size: clamp(38px, 6vw, 68px);
+  margin: 15px 0;
+  font-weight: 800;
+}
+
+.ak-heading h2 span,
+.ak-vision h3 span {
+  color: #ff791b;
+}
+
+.ak-heading p {
+  color: #ccc;
+  font-size: 18px;
+}
+
+.ak-heading strong {
+  color: #ff791b;
+}
+
+.ak-founder-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.ak-founder-card {
+  background: linear-gradient(145deg, #242424, #111);
+  border: 1px solid #49301e;
+  border-radius: 22px;
+  overflow: hidden;
+  text-align: center;
+  transition: .35s ease;
+}
+
+.ak-founder-card:hover {
+  transform: translateY(-8px);
+  border-color: #ff791b;
+  box-shadow: 0 15px 40px #ff791b22;
+}
+
+.ak-founder-image {
+  height: 350px;
+  background: #1b1b1b;
+  overflow: hidden;
+}
+
+.ak-founder-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  transition: .5s ease;
+}
+
+.ak-founder-card:hover img {
+  transform: scale(1.04);
+}
+
+.ak-founder-info {
+  padding: 25px 20px 30px;
+}
+
+.ak-founder-info h3 {
+  font-size: 19px;
+  margin: 0 0 10px;
+}
+
+.ak-founder-info span {
+  color: #ff791b;
+  font-weight: 700;
+}
+
+.ak-line {
+  width: 65px;
+  height: 3px;
+  background: #ff791b;
+  margin: 20px auto;
+}
+
+.ak-founder-info p {
+  color: #ccc;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.ak-vision {
+  margin-top: 55px;
+  padding: 30px;
+  border: 1px solid #ff791b;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr 1.5fr;
+  align-items: center;
+  gap: 30px;
+  background: #171717;
+}
+
+.ak-vision-icon {
+  font-size: 65px;
+  color: #ff791b;
+}
+
+.ak-vision h3 {
+  font-size: 30px;
+  margin: 0 0 8px;
+}
+
+.ak-vision p {
+  color: #ddd;
+  font-style: italic;
+}
+
+.ak-vision-description {
+  border-left: 1px solid #ff791b;
+  padding-left: 30px;
+  color: #ccc;
+  line-height: 1.8;
+}
+
+@media (max-width: 850px) {
+  .ak-founder-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ak-vision {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .ak-vision-description {
+    border-left: none;
+    border-top: 1px solid #ff791b;
+    padding: 20px 0 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .ak-founders {
+    padding: 65px 16px;
+  }
+
+  .ak-founder-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ak-founder-image {
+    height: 380px;
+  }
+}
+
 </style>
 </head>
 
@@ -1071,5 +1248,73 @@ if (new URLSearchParams(location.search).get("admin") === "1") {
 }
 
 </script>
+ 
+<!-- ASSEMBLEKARO FOUNDERS SECTION -->
+
+<section class="ak-founders" id="founders">
+  <div class="ak-container">
+
+    <div class="ak-heading">
+      <span class="ak-eyebrow">THE PEOPLE BEHIND ASSEMBLEKARO</span>
+      <h2>Meet Our <span>Founders</span></h2>
+      <p>Three Minds. One Vision – <strong>Assembly Made Easy.</strong></p>
+    </div>
+
+    <div class="ak-founder-grid">
+
+      <article class="ak-founder-card">
+        <div class="ak-founder-image">
+          <img src="assets/anushka.jpeg" alt="Anushka Jitendra Varude">
+        </div>
+        <div class="ak-founder-info">
+          <h3>Anushka Jitendra Varude</h3>
+          <span>Co-Founder & CEO</span>
+          <div class="ak-line"></div>
+          <p>Turning ideas into impact and helping build a better home experience.</p>
+        </div>
+      </article>
+
+      <article class="ak-founder-card">
+        <div class="ak-founder-image">
+          <img src="assets/shubham.jpeg" alt="Shubham Mahendra Wankhede">
+        </div>
+        <div class="ak-founder-info">
+          <h3>Shubham Mahendra Wankhede</h3>
+          <span>Founder & CEO</span>
+          <div class="ak-line"></div>
+          <p>Building reliable and efficient assembly solutions for every home in Pune and beyond.</p>
+        </div>
+      </article>
+
+      <article class="ak-founder-card">
+        <div class="ak-founder-image">
+          <img src="assets/siddharth.jpeg" alt="Siddharth Mahendra Wankhede">
+        </div>
+        <div class="ak-founder-info">
+          <h3>Siddharth Mahendra Wankhede</h3>
+          <span>Co-Founder</span>
+          <div class="ak-line"></div>
+          <p>Driving growth and innovation to make AssembleKaro your trusted partner.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="ak-vision">
+      <div class="ak-vision-icon">◎</div>
+      <div>
+        <h3>Our <span>Vision</span></h3>
+        <p>Building Together. Making Assembly Easy.</p>
+      </div>
+      <div class="ak-vision-description">
+        At AssembleKaro, we believe in simplifying your life.
+        With a passionate team and customer-first approach,
+        we're here to make furniture assembly and installation effortless.
+      </div>
+    </div>
+
+  </div>
+</section>
+
 </body>
 </html>
